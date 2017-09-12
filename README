@@ -19,7 +19,7 @@
    or
      bash ttfencinst.sh Cyberbas t2c no
    Linux/Unix/... utilities for Microsoft Windows may be taken from
-   http://www.delorie.com
+   http://www.delorie.com or under Cygwin/MinGW/...
 
    The third parameter (any text string) may be omitted. If it presents
    then `ttf2afm' produces the glyph names instead of their unicodes. This
