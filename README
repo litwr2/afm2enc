@@ -1,0 +1,96 @@
+                    INSTRUCTION
+                        FOR
+     FAST TTF-FONT INSTALLATION UNDER PDF(LA)TEX
+
+0. See
+   https://tex.stackexchange.com/questions/196014/error-after-installing-font-using-otftotfm-unknown-version-of-os-2-table-000
+   The site
+   http://litwr2.atspace.eu/tex.html
+   contains link to Cyberbas font used as an example in the below text.
+
+1. Run shell script (it uses `sed' and `rm' standard Unix/Linux/... commands)
+     ttfencinst.sh FONTFILENAME ENCODING [NO UNICODE FLAG]
+   e.g.,
+     ttfencinst.sh Cyberbas t2c no
+   or just
+     ttfencinst.sh Cyberbas t2c
+   Under Microsoft Windows you may use direct call for `bash', e.g.,
+     bash ttfencinst.sh Cyberbas t2c
+   or
+     bash ttfencinst.sh Cyberbas t2c no
+   Linux/Unix/... utilities for Microsoft Windows may be taken from
+   http://www.delorie.com
+
+   The third parameter (any text string) may be omitted. If it presents
+   then `ttf2afm' produces the glyph names instead of their unicodes. This
+   makes font map more readable but may produce problems with some rare fonts.
+
+   The following ligatures are set automatically ?`, !`, --, ---, ``, '', ff,
+   fi, fl, ffi, ffl, <<, and >>.
+
+2. See FONTFILENAME-ENCODING.pdf (e.g., Cyberbas-t2c.pdf)
+
+3. Move .enc, .tfm, .ttf files to the TeX directories (these files names
+     should be like Cyberbas-t2c.enc, Cyberbas-t2c.tfm, Cyberbas.ttf). The
+     current directory may be used too -- This is convenient for the font test
+     purpose.
+
+4. Add .4map (e.g., Cyberbas-t2c.4map) file to pdftex.map file (this maybe
+     also done by modifying of updmap.cfg and running `updmap' program).
+     Instead of this you may add line
+\pdfmapline{+FONTFILENAME-ENCODING <FONTFILENAME-ENCODING.enc <FONTFILENAME.ttf}
+     to the preamble of your document. This line may be like that
+\pdfmapline{+Cyberbas-t2c <Cyberbas-t2c.enc <Cyberbas.ttf}
+     The argument for \pdfmapline is the contents of .4map file.
+
+5. You may repeat this process for creating .enc and .tfm files for other
+     encodings.
+
+6. Run something appropriate (e.g., mktexlsr) to update TeX files database.
+     This step is redundant in the case of using of the current directory.
+
+These steps will allow to attach new font to LaTeX by command
+\newfont{\FONTID}{FONTFILENAME-ENCODING [at SIZE]}
+     For example, 
+\newfont{\CyberTtwoC}{Cyberbas-T2C at 10pt}
+
+\FONTID will switch to a new font and allow to use numeric indices to its
+glyphs (at \char or \symbol commands) as well as standard TeX names like
+\copyright, \CYRA, \CYRYAT, etc. Don't forget to set the proper encoding by
+\fontencoding{ENCODING}\selectfont in the case of document with multiple
+encodings for fonts.
+
+It is possible to create a new font family (series, etc) for new font(s). This
+will require to create a `.fd' file. A sample of this file is provided.
+This .fd file must also be placed to the TeX directory.
+
+For example, t2ccyber.fd file will introduce `cyber' family of t2c encoded
+fonts.
+
+The LaTeX commands sequence \fontfamily{cyber}\selectfont will attach the
+font.
+
+You may also install all glyphs of any ttf-font by `ttfallinst.sh' script.
+Run
+     ttfallinst.sh FONTFILENAME
+e.g.,
+     ttfallinst.sh Cyberbas
+
+This will produce a set of .enc, .vpl and .tfm files which names are
+FONTFILENAME-all#, e.g., Cyberbas-all0 or Cyberbas-all4. This will also
+produce .tex and .pdf files with name FONTFILENAME-all-dump, e.g.,
+Cyberbas-all-dump. The .pdf file will contain all glyphs of the font in the
+consequent tables, one table per appropriate .enc/.tfm file pair.
+
+You should move all .enc, .tfm, and .ttf files to TeX directories and install
+them as shown above. Don't forget to use .4map file directly or by using of
+\pdfmapline command. You can also install only those .enc/.tfm files pairs
+that contain necessary glyphs.
+
+There is generally no convenient way to use the installed fonts with all
+glyphs support. You should probably use direct access to the glyphs via
+\symbol or \char commands. The hardcopy of FONTFILENAME-all-dump file may
+be very useful in this case.
+
+The files with `vpl' and `afm' extensions aren't required for the work
+with TeX and may be deleted.

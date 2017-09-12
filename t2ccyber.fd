@@ -1,0 +1,6 @@
+%THIS IS ONLY A SAMPLE!
+\ProvidesFile{t2ccyber.fd}
+  [2008/06/03 v1.0 Cyber Base Unicode at T2C font definitions]
+\DeclareFontFamily{T2C}{cyber}{}
+\DeclareFontShape{T2C}{cyber}{m}{n}{<->cyberbas-t2c}{}
+\endinput

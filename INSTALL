@@ -1,0 +1,5 @@
+Check BINDIR location at `makefile' then `make' and `make install'.
+
+Under Microsoft Windows just place `afmtoenc.exe' to the location
+known to PATH. Use `bash' or similar shell to run `ttfencinst.sh'
+script.
